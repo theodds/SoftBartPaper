@@ -4,7 +4,7 @@ get_f <- function(str) {
   if(str == "lasso") return(f_lasso)
   if(str == "rf") return(f_rf)
   if(str == "xgb") return(f_xgb)
-  if(str == "dart") return(f_bart)
+  if(str == "dart") return(f_dart)
   if(str == "sbartcv") return(f_sbartcv)
 
   stop("Invalid string")
