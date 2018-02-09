@@ -1,40 +1,26 @@
 # SoftBartPaper
 
-Welcome to ProjectTemplate!
+This code reproduces some of the results from the paper 
 
-This file introduces you to ProjectTemplate, but you should eventually replace
-the contents of this file with an introduction to your project. People who
-work with your data in the future will thank you for it, including your future
-self.
+-   Linero, A.R. and Yang, Y. (2017). *Bayesian tree ensembles that adapt to smoothness and sparsity.* (Submitted)
 
-ProjectTemplate is an R package that helps you organize your statistical
-analysis projects. Since you're reading this file, we'll assume that you've
-already called `create.project()` to set up this project and all of its
-contents.
+In particular, we give code for reproducing Figure 5 and Figure 6. We also give some code for reproducing Table 1, but do not provide the datasets. First, the user must install the `ProjectTemplate` and the `SoftBART` package. 
 
-To load your new project, you'll first need to `setwd()` into the directory
-where this README file is located. Then you need to run the following two
-lines of R code:
+```r
+install.packages("ProjectTemplate")
+library(devtools)
+install_github("theodds/SoftBART")
+```
 
-	library('ProjectTemplate')
-	load.project()
+Note that if you are on OSX, you may need to first run the following commands from the terminal:
 
-After you enter the second line of code, you'll see a series of automated
-messages as ProjectTemplate goes about doing its work. This work involves:
-* Reading in the global configuration file contained in `config`.
-* Loading any R packages you listed in he configuration file.
-* Reading in any datasets stored in `data` or `cache`.
-* Preprocessing your data using the files in the `munge` directory.
+    curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+    sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 
-Once that's done, you can execute any code you'd like. For every analysis
-you create, we'd recommend putting a separate file in the `src` directory.
-If the files start with the two lines mentioned above:
+To load the needed helper functions and the packages required to run the code, navigate to this directory and run the following two lines of R code: 
 
-	library('ProjectTemplate')
-	load.project()
+```r
+library('ProjectTemplate')
+load.project()
+```
 
-You'll have access to all of your data, already fully preprocessed, and
-all of the libraries you want to use.
-
-For more details about ProjectTemplate, see http://projecttemplate.net
-# SoftBartPaper
