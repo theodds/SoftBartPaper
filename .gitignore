@@ -1,0 +1,10 @@
+
+/src/*.o
+/src/*.o-*
+/src/*.d
+/src/*.so
+*.dll
+.RData
+.Rproj.user
+.Rhistory
+.DS_Store

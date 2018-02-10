@@ -57,13 +57,13 @@ get_fried_stats_bart <- function(fit, truth) {
 
 ## ---- Simulation study functions
 
-fitter <- function(x,y,method) {
+fitter <- function(x,y,x_test,method) {
   out <- NULL
-  if(method == "BART") out <- softbart(X = x,Y = y, X_test = x[1:5,],
+  if(method == "DART") out <- softbart(X = x,Y = y, X_test = x_test,
                                        hypers = Hypers(x,y,width = 1E-20,
                                                        num_tree = 50),
                                        opts = Opts(update_tau = FALSE))
-  if(method == "SoftBART") out <- softbart(X = x, Y = y, X_test = x[1:5,],
+  if(method == "SoftBART") out <- softbart(X = x, Y = y, X_test = x_test,
                                            hypers = Hypers(x,y, num_tree = 50))
   return(out)
 }
@@ -81,7 +81,7 @@ sim_rep <- function(p, sigma, method, seed, lambda) {
   set.seed(seed)
   datum <- simulate_fried_data_2(p = p, sigma = sigma, lambda = lambda)
 
-  fit <- fitter(datum$X_train,datum$Y_train, method)
+  fit <- fitter(datum$X_train,datum$Y_train, datum$X_test, method)
 
   results <- get_fried_stats_bart(fit, 1:5)
   results$rmse <- rmspe(fit$y_hat_test_mean, datum$mu_test)

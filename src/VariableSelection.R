@@ -28,10 +28,7 @@ results_1 <- clusterApplyLB(cl, settings_list, sim_rep_)
 results_2 <- map_df(settings_list, .f = ~ as_tibble(sim_rep_(.x)))
 
 results <- cbind(results_2, settings)
-
-
-## results <- cbind(results, results_2)
-## names(results)[9] <- "Method"
+names(results)[10] <- "Method"
 
 
 p_1 <- ggplot(results, aes(x = lambda,
@@ -59,7 +56,7 @@ p_3 <- ggplot(results, aes(x = lambda,
   xlab("$\\lambda$") + ylab("Recall")
 
 p_4 <- ggplot(results, aes(x = lambda,
-                           y = RMSE,
+                           y = rmse,
                            color = Method,
                            shape = Method)) +
   geom_smooth(span = .3, se = FALSE) +
