@@ -91,13 +91,13 @@ results_xgb_ <- df10(results_xgb_10, "Boosting")
 
 results <- rbind(results_rf, results_rf_,
                  results_lasso, results_lasso_,
-                 ## results_xgb, results_xgb_ 
-                 ## results_xbart, results_xbart_,
-                 ## results_dart, results_dart_,
+                 results_xgb, results_xgb_
+                 results_xbart, results_xbart_,
+                 results_dart, results_dart_,
                  results_softbart, results_softbart_
                  )
 
-p <- ggplot(results, aes(x = P, y = RMSE, color = Method, shape = Method)) 
+p <- ggplot(results, aes(x = P, y = RMSE, color = Method, shape = Method))
 p <- p + geom_smooth() + facet_wrap(~sigma) + scale_x_log10() + ylim(0, 3.8)
 p <- p + stat_summary(fun.y = mean, geom = "point", size = 2)
 p + theme_bw()
