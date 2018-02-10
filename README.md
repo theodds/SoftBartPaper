@@ -38,4 +38,8 @@ Figure 6 can be reproduced by running `source("src/VariableSelection.R")`. This 
 
 ### Data analysis
 
-The raw data used for the real data analysis are provided in the `datasets/` folder. These datasets are automatically preprocessed and loaded when running the `load.project()` command. The code associated to reproducing the results in Table 1 is given in `src/TestingRealData.R` As above, our code caches all results. For speed purposes, one can do the analysis for the individual datasets in separate `R` processes; for the `abalone` dataset, it may be advisable to split the different seeds across different processes as well, as this dataset is larger than the others. Results are cached in `CacheRealData/`. 
+The raw data used for the real data analysis are provided in the `datasets/` folder. These datasets are automatically processed and loaded when running the `load.project()` command. The code associated to reproducing the results in Table 1 is given in `src/TestingRealData.R` As above, our code caches all results. For speed purposes, one can do the analysis for the individual datasets in separate `R` processes; for the `abalone` dataset, it may be advisable to split the different seeds across different processes as well, as this dataset is larger than the others. Results are cached in `CacheRealData/`. 
+
+### Note on BART-CV
+
+Due to speed and memory concerns, when reproducing the results here we use the implementation of BART-CV in the `dbarts` packaged, even though this is not what was used in the manuscript. This results in somewhat lower performance for BART-CV here, relative to what is reported in the manuscript (i.e., better results for BART-CV are reported in the manuscript).
