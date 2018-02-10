@@ -64,43 +64,72 @@ f_compare_all <- function(X, Y, seed, data_name, K = 5) {
 
 ## Wipp: ----
 
-results_wipp <- f_compare_all(X_wipp, Y_wipp, seed = seed, K = 5)
+results_wipp <- f_compare_all(X_wipp, Y_wipp, seed = seed, "WIPP", K = 5)
 
 ## BBB: DONE ----
 
-results_bbb <- f_compare_all(X_bbb, Y_bbb, seed = seed, K = 5)
+results_bbb <- f_compare_all(X_bbb, Y_bbb, seed = seed, "BBB", K = 5)
 
 ## Triazines: DONE ----
 #
-results_tri <- f_compare_all(X = X_tri, Y = Y_tri, seed = seed, K = 5)
+results_tri <- f_compare_all(X = X_tri, Y = Y_tri, seed = seed, "TRI", K = 5)
 
 ## AIS: DONE ----
 
-results_ais <- f_compare_all(X = X_ais, Y = Y_ais, seed = seed, K = 5)
+results_ais <- f_compare_all(X = X_ais, Y = Y_ais, seed = seed, "AIS", K = 5)
 
 ## Hatco: DONE ----
 
-results_hatco <- f_compare_all(X = X_hatco, Y = Y_hatco, seed = seed, K = 5)
+results_hatco <- f_compare_all(X = X_hatco, Y = Y_hatco, seed = seed, "HATCO", K = 5)
 
 ## Servo ----
 
-results_servo <- f_compare_all(X = X_servo, Y = Y_servo, seed = seed, K = 5)
+results_servo <- f_compare_all(X = X_servo, Y = Y_servo, seed = seed, "SERVO", K = 5)
 
 
 ## Cpu ----
 
-results_cpu <- f_compare_all(X = X_cpu, Y = Y_cpu, seed = seed, K = 5)
+results_cpu <- f_compare_all(X = X_cpu, Y = Y_cpu, seed = seed, "CPU", K = 5)
 
 ## Abalone ----
 
 results_abalone <- f_compare_all(X = as.matrix(X_aba), Y = Y_aba,
-                                 seed = seed, K = 5)
+                                 seed = seed, "ABA", K = 5)
 
 ## Diamonds: DONE ----
 
 results_diamonds <- f_compare_all(X = X_diamonds,
-                                  Y = Y_diamonds, seed = seed, K = 5)
+                                  Y = Y_diamonds, seed = seed,
+                                  "DIAMONDS", K = 5)
 
 ## Tecator: DONE ----
 
-results_tec <- f_compare_all(X = X_tec, Y = Y_tec, seed = seed, K = 5)
+results_tec <- f_compare_all(X = X_tec, Y = Y_tec, seed = seed, "TEC", K = 5)
+
+## Process data ----
+
+process_data <- function(results, data_name) {
+  foo <- sapply(results, function(x) mean(sqrt(colMeans(x$results^2))))
+  n <- length(foo)
+  return(tibble(x = foo[-n]/foo[n], method = c("softbart", "xbart",
+                                               "lasso", "rf", "xgb"),
+                dataset = data_name))
+}
+
+pwipp <- process_data(results_wipp, "WIPP")
+pbbb <- process_data(results_bbb, "BBB")
+ptri <- process_data(results_tri, "TRI")
+pais <- process_data(results_ais, "AIS")
+phatco <- process_data(results_hatco, "HATCO")
+pservo <- process_data(results_servo, "SERVO")
+pcpu <- process_data(results_cpu, "CPU")
+pabalone <- process_data(results_abalone, "ABALONE")
+pdiamonds<- process_data(results_abalone, "DIAMONDS")
+ptec <- process_data(results_abalone, "TEC")
+
+results_table_pre <- rbind(pwipp,
+                           ## pbbb, ptri,
+                           pais, phatco, pservo, pcpu, pabalone,
+                           pdiamonds, ptec)
+
+results_table_pre %>% spread(key = method, value = x)
